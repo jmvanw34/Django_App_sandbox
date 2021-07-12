@@ -1,0 +1,30 @@
+{% extends 'GifsQuestionMark/GifsQuestionMark_base.html' %}
+{% load crispy_forms_tags %}
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
+from django.core.paginator import Paginator
+
+{% block content %}
+
+<br/>
+<h5>
+    This returns information about a random article from the scholarly reference DOI system Crossref.
+</h5>
+
+<ul>
+
+
+
+
+    </br>
+    <pre><h4>Title:</h4> {{ title_data }}</pre>
+    <pre><h4>Author:</h4> {{ author_data | pprint }}</pre>
+    <pre>I <strike>don't</strike> print, see? --> {{ ISSN_data }}</pre>
+
+
+
+
+
+</ul>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'GifsQuestionMark/GifsQuestionMark_base.html' %}
+{% load crispy_forms_tags %}
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
+
+{% block content %}
+
+ <div class="row">
+
+<!--TAG LIST FROM QUOTE FORM-->
+{% for tag in tags %}
+      <div class="card">
+        {{tag.tag_content}}
+        <br />
+        <form action="../delTag/{{tag.id}}/" method="POST">
+          {% csrf_token %}
+          <button value="remove" type="submit"  class="btn btn-primary" ><span class="glyphicon glyphicon-trash"></span>Remove</button>
+        </form>
+      </div>
+
+{% endfor%}
+
+
+</div>
+
+<!-- New Tag Form-->
+<div class="container-fluid">
+    <form id="tag-form">
+        <div class="row">
+            {% csrf_token %}
+            {{ tag_form }}
+            <div class="form-group col-4">
+            </div>
+        </div>
+    </form>
+</div>
+<hr />
+
+<div class="col-md-2">
+    <table class="table table-striped table-sm" id="my_tags">
+        <thead>
+            <tr>
+                <th>Tag table</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tag in tags %}
+        <tr>
+            <td>{{tag.tag_content}}</td>
+         </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
+{% endblock %}
+
+
+

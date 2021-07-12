@@ -1,0 +1,62 @@
+{% extends 'GifsQuestionMark/GifsQuestionMark_base.html' %}
+{% load crispy_forms_tags %}
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
+from django.core.paginator import Paginator
+
+{% block content %}
+
+
+<br />
+
+
+<h2>Quote List</h2>
+ <div class="row">
+{% for quote in page_obj %}
+      <div class="card w-25 p-3">
+          <h5>Author:
+              <small class="text-muted">{{quote.quote_author}}</small>
+          </h5>
+          <hr />
+          <h5>Tags:
+              {% for tag in quote.tags.all %}
+              <small class="text-muted">{{ tag }}</small>
+              {% endfor %}
+          </h5>
+          <hr />
+          <h5>Content Link:
+              <a href="{% url 'GifsQuestionMark_quote_content' quote.id %}">view Quote_Content</a>
+          </h5>
+        <br />
+        <form action="../delQuote/{{quote.id}}/" method="POST">
+          {% csrf_token %}
+          <button value="remove" type="submit"  class="btn btn-primary" ><span class="glyphicon glyphicon-trash"></span>Remove</button>
+        </form>
+      </div>
+
+{% endfor%}
+</div>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock %}
+
+
+
+
+

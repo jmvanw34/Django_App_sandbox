@@ -1,0 +1,52 @@
+{% extends 'GifsQuestionMark/GifsQuestionMark_base.html' %}
+{% load crispy_forms_tags %}
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
+
+
+{% block content %}
+
+
+<center class="row">
+    <h1><i>These are the actual quotes</i></h1>
+    <hr/>
+</center>
+
+
+<div class="row">
+
+    <div class="card w-25 p-3">
+        <h5>Author:
+            <small class="text-muted">{{quote.quote_author}}</small>
+        </h5>
+        <hr/>
+        <h5>Tags:
+            {% for tag in quote.tags.all %}
+            <small class="text-muted">{{ tag }}</small>
+            {% endfor %}
+        </h5>
+        <hr/>
+        <h5>Content:
+            <small class="text-muted">{{quote.quote_content}}</small>
+        </h5>
+        <hr/>
+        <h5>Content Link:
+            <a class="nav-link" href="{% url 'GifsQuestionMark_view_quotes' %}">Back to All Quotes</a>
+        </h5>
+        <a class="nav-link" href="{% url 'edit_quote' quote.id %}">edit Quote</a>
+        <br/>
+        <form action="../../delQuote/{{quote.id}}/" method="POST">
+            {% csrf_token %}
+            <button value="remove" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-trash"></span>Remove
+            </button>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+
+
+

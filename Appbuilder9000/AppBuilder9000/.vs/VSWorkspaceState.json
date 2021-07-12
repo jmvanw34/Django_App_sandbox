@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\BudgetingApp\\templates",
+    "\\BudgetingApp\\templates\\BudgetingApp",
+    "\\CryptoApp",
+    "\\CryptoApp\\templates",
+    "\\CryptoApp\\templates\\CryptoApp",
+    "\\GifsQuestionMark",
+    "\\GifsQuestionMark\\templates",
+    "\\GifsQuestionMark\\templates\\GifsQuestionMark"
+  ],
+  "SelectedNode": "\\CryptoApp\\templates\\CryptoApp\\CryptoApp_display.html",
+  "PreviewInSolutionExplorer": false
+}

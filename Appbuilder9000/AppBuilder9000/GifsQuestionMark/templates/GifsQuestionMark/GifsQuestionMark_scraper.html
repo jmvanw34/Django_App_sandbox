@@ -1,0 +1,23 @@
+{% extends 'GifsQuestionMark/GifsQuestionMark_base.html' %}
+{% load crispy_forms_tags %}
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
+from django.core.paginator import Paginator
+
+{% block content %}
+
+<center class="row">
+    <h1>This scrapes quotes from Goodreads.com</h1>
+    <hr>
+</center>
+<br/>
+<h5>Scraping Link:
+    <a class="btn btn-primary" href="{% url 'GifsQuestionMark_scraper' %}">Scrape or Something, this isn't actually needed</a>
+</h5>
+{% for scrape in scraper_output %}
+<p> Quote: {{ scrape.stripped_quote }} </p>
+<p> Tags: {{ scrape.tag_string }} </p>
+<p> Author: {{ scrape.author_string }} </p>
+<hr>
+{% endfor %}
+{% endblock %}

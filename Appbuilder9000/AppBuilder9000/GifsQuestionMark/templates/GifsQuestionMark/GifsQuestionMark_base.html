@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../../static/js/GifsQuestionMark.js" defer></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %} TITLE {% endblock %}</title>
+</head>
+<body class="container-fluid">
+{% include 'GifsQuestionMark/GifsQuestionMark_navbar.html' %}
+
+  <center class="row">
+    <h1><i>Quotes, Not Gifs: The Title Lied!</i></h1>
+    <hr />
+  </center>
+
+{% block content %} {% endblock %}
+
+Random Content Here (I'm in _base)
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    {% block javascript %}
+    {% endblock javascript %}
+
+
+</body>
+</html>

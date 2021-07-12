@@ -1,0 +1,44 @@
+{% extends 'GifsQuestionMark/GifsQuestionMark_base.html' %}
+{% load crispy_forms_tags %}
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
+
+
+{% block content %}
+
+ <div class="row">
+<h3>This will search the scholarly reference DOI system of Crossref (https://www.crossref.org/) for key words, authors, editors, or publishers.</h3>
+<!--QUOTE FORM-->
+
+        <div class="col-md-4">
+            <div  class="submit_form">
+                <form method="POST">
+                {% csrf_token %}
+                {{ question_form|crispy }}
+
+                    <input name="search" type="submit" class="btn btn-primary" value="Search" />
+
+                </form>
+            </div>
+
+<ul>
+    </br>
+    <pre><h4>Title:</h4> {{ title_data }}</pre>
+    <pre><h4>Author:</h4> {{ author_data | pprint }}</pre>
+    <pre><h4>URL:</h4> {{ url_data | pprint }}</pre>
+</ul>
+
+        </div>
+ </div>
+
+<hr />
+
+
+
+{% endblock %}
+
+
+
+
+
+

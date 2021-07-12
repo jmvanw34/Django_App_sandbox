@@ -1,0 +1,135 @@
+{% extends 'GifsQuestionMark/GifsQuestionMark_base.html' %}
+{% load crispy_forms_tags %}
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
+
+<!--<div class="creationForm">
+
+<form method="post" class="bootstrap4">
+&lt;!&ndash;    {{ form|crispy }}&ndash;&gt;
+    <input type="submit" value="Search?">
+</form>-->
+{% block content %}
+
+ <div class="row">
+
+<!--QUOTE FORM-->
+
+        <div class="col-md-4">
+            <div  class="submit_form">
+                <form method="POST">
+                {% csrf_token %}
+                {{ quoteform|crispy }}
+<!-- counter -->
+                    <label for="counter-input" class="label">Quote Character count(max:501):
+                    <span id="counter-display" class="tag is-success">0</span></label>
+<!-- end counter -->
+                    <input name="quote" type="submit" class="btn btn-primary" value="Add Quote" />
+
+                </form>
+            </div>
+
+<!-- New Tag Form-->
+
+            <form id="tag-form">
+                    {% csrf_token %}
+                    {{ tag_form }}
+                    <div>
+                        <input type="submit" class="btn btn-primary" value="Create Tag" />
+                    </div>
+            </form>
+        </div>
+ </div>
+
+<hr />
+
+<div class="col-md-2">
+    <table class="table table-striped table-sm" id="my_tags">
+        <thead>
+            <tr>
+                <th>All Tags</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tag in tags %}
+        <tr>
+            <td>{{tag.tag_content}}</td>
+         </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
+{% endblock %}
+
+<script>
+
+$( "#div_id_tags" ).load( "../../GifsQuestionMark_create.html #div_id_tags" );
+
+</script>
+
+
+{% block javascript %}
+<script>
+    /*
+        On submiting the form, send the POST ajax
+        request to server and after successful submission
+        display the object.
+    */
+    $("#tag-form").submit(function (e) {
+        // preventing from page reload and default actions
+        e.preventDefault();
+        // serialize the data for sending the form data.
+        var serializedData = $(this).serialize();
+        // make POST ajax call
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'post_tag' %}",
+            data: serializedData,
+            success: function (response) {
+                console.log(response)
+                // on successful creating object
+                // 1. clear the form.
+                $("#tag-form").trigger('reset');
+                // 2. focus to nickname input
+                $("#tag_input").focus();
+
+                // display the newly friend to table. //Ah yes the newly friend. The best sort of friend
+                var instance = JSON.parse(response["instance"]);
+                var fields = instance[0]["fields"];
+                $("#my_tags tbody").prepend(
+                    `<tr>
+                    <td>${fields["tag_content"]||""}</td>
+                    </tr>`
+                )
+            },
+            error: function (response) {
+                // alert the error if any error occured
+                alert(response["responseJSON"]["error"]);
+            }
+        })
+    })
+</script>
+{% endblock javascript %}
+
+
+<!--$( "#div-to-be-reloaded" ).load( "ajax/response.html #div-with-new-content" );-->
+
+<!--<script>-->
+<!--var token = '{{csrf_token}}';-->
+
+<!--$("#tag_button").click(function(){-->
+<!--  $.ajax({-->
+<!--    headers: { "X-CSRFToken": token },-->
+<!--    method: "POST",-->
+<!--    url: "{% url 'GifsQuestionMark_view_tags' %}",-->
+<!--    data: { tag : document.getElementById('id_tag_content').value },-->
+<!--    success: function(result){-->
+<!--        console.log(result);-->
+<!--        $('.status').contents()[0].textContent = 'Balance&nbsp'+result-->
+<!--  }});-->
+<!--});-->
+<!--</script>-->
+
